@@ -6,10 +6,6 @@ const express = require('express');
 
 const bodyParser = require('body-parser');
 
-// importar o arquivo de rotas
-
-const routes = require('../app/routes')
-
 // iniciar o objeto do express
 
 const app = express();
@@ -24,8 +20,6 @@ app.use(express.static('./app/public'));
 
 // configurar o middleware body-parser
 app.use(bodyParser.urlencoded({extended: true}));
-
-app.use(routes);
 
 
 // exportar o objeto app;

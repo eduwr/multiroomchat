@@ -71,7 +71,7 @@
 		<div class="container">
             <div class="row conversa" id="conversa">
 				<div class="col-md-1"></div>
-				<div class="col-md-10">
+				<div class="col-md-10" id="dialogos">
 				
 				</div>
 				<div class="col-md-1"></div>
@@ -125,8 +125,16 @@
 		<script>	
 			var socket = io('http://localhost:8000');
 
-			socket.on('msgToClient', () => {
-				alert('Recebi requisição do servidor e estou tomando ação');
+			socket.on('msgToClient', (data) => {
+				var html = '';
+
+				html += '<div class="dialogo">';
+					html += '<h4>' + data.nickname + '</h4>';
+					html += '<p>' + data.mensagem + '</p>';
+				html += '</div>';
+
+				$('#dialogos').append(html);
+
 			})
 		</script>
 	</body>

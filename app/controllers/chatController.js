@@ -1,18 +1,18 @@
 const { check, validationResult } = require('express-validator');
 
-module.exports.initChat = (app, req, res) => {
+module.exports.initChat = (req, res) => {
     const formData = req.body;    
     const errors = validationResult(req);
 
     if (!errors.isEmpty()){
         res.render("index", { validation: errors.array() })
         return;        
-    }
+    };
 
     req.io.emit(
         'msgToClient',
-        'Test'
-    ) 
+        {nickname: formData.nickname, mensagem: ' acabou de entrar no chat!'}
+    ); 
 
     res.render("chat");
 };
