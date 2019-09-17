@@ -21,6 +21,31 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('Usuário desconectou!');
     }); 
+
+    socket.on('msgParaServidor', (data) => {
+        
+        // Diálogo
+        socket.emit(
+            'msgToClient',
+            {nickname: data.nickname, mensagem: data.mensagem}
+        );
+        socket.broadcast.emit(
+            'msgToClient',
+            {nickname: data.nickname, mensagem: data.mensagem}
+        );
+
+        // Participantes
+        if(parseInt(data.nickname_atualizado) == 0){    
+            socket.emit(
+                'participantesParaCliente',
+                {nickname: data.nickname }
+            );
+            socket.broadcast.emit(
+                'participantesParaCliente',
+                {nickname: data.nickname }
+            );
+        };
+    });
 });
 
 app.use(require('./app/routes'));
